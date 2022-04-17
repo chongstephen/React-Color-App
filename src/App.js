@@ -16,13 +16,13 @@ class App extends Component {
   render() {
     return (
       <Switch>
-        <Route path="/palette/new" render={() => <NewPaletteForm />}/>
-         <Route
+        <Route path="/palette/new" render={() => <NewPaletteForm />} />
+        <Route
           exact
           path="/palette/:paletteId/:colorId"
           render={(routeProps) => (
             <SingleColorPalette
-            colorId={routeProps.match.params.colorId}
+              colorId={routeProps.match.params.colorId}
               palette={generatePalette(
                 this.findPalette(routeProps.match.params.paletteId)
               )}
