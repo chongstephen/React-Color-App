@@ -1,5 +1,3 @@
-import chroma from "chroma-js";
-
 export default {
     Palette: {
       height: "100vh",
