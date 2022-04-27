@@ -8,10 +8,9 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/core/Menu";
+import ColorLensOutlinedIcon from '@material-ui/icons/ColorLensOutlined';
 import Button from "@material-ui/core/Button";
-import styles from './styles/PaletteFormNavStyles'
-
+import styles from "./styles/PaletteFormNavStyles";
 
 class PaletteFormNav extends Component {
   constructor(props) {
@@ -55,9 +54,11 @@ class PaletteFormNav extends Component {
               color="inherit"
               aria-label="Open drawer"
               onClick={this.props.handleDrawerOpen}
-              className={classNames(classes.menuButton, open && classes.hide)}
+              className={classNames(classes.menuButton, {
+                [classes.hide]: open,
+              })}
             >
-              <MenuIcon />
+              <ColorLensOutlinedIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" noWrap>
               Create a Palette
