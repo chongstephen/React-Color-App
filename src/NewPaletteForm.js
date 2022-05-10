@@ -11,9 +11,8 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Button from "@material-ui/core/Button";
 import DraggableColorList from "./DraggableColorList";
 import { arrayMove } from "react-sortable-hoc";
-import styles from './styles/NewPaletteFormStyles'
-import seedColors from './seedColors';
-
+import styles from "./styles/NewPaletteFormStyles";
+import seedColors from "./seedColors";
 
 class NewPaletteForm extends Component {
   static defaultProps = {
@@ -57,13 +56,21 @@ class NewPaletteForm extends Component {
   }
   addRandomColor() {
     const allColors = this.props.palettes.map((p) => p.colors).flat();
-    var rand = Math.floor(Math.random() * allColors.length);
-    const randomColor = allColors[rand];
+    let rand;
+    let randomColor;
+    let isDuplicateColor = true;
+    while (isDuplicateColor) {
+      rand = Math.floor(Math.random() * allColors.length);
+      randomColor = allColors[rand];
+      isDuplicateColor = this.state.colors.some(
+        color => color.name === randomColor.name
+      );
+    }
     this.setState({ colors: [...this.state.colors, randomColor] });
   }
   handleSubmit(newPalette) {
     newPalette.id = newPalette.paletteName.toLowerCase().replace(/ /g, "-");
-    newPalette.colors = this.state.colors
+    newPalette.colors = this.state.colors;
     this.props.savePalette(newPalette);
     this.props.history.push("/");
   }
@@ -98,7 +105,6 @@ class NewPaletteForm extends Component {
           open={open}
           classes={{ paper: classes.drawerPaper }}
         >
-         
           <div className={classes.drawerHeader}>
             <IconButton onClick={this.handleDrawerClose}>
               <ChevronLeftIcon />
@@ -106,21 +112,21 @@ class NewPaletteForm extends Component {
           </div>
           <Divider />
           <div className={classes.container}>
-            <Typography variant='h4' gutterBottom>
+            <Typography variant="h4" gutterBottom>
               Design Your Palette
             </Typography>
             <div className={classes.buttons}>
               <Button
-                variant='contained'
-                color='secondary'
+                variant="contained"
+                color="secondary"
                 onClick={this.clearColors}
                 className={classes.button}
               >
                 Clear Palette
               </Button>
               <Button
-                variant='contained'
-                color='primary'
+                variant="contained"
+                color="primary"
                 onClick={this.addRandomColor}
                 className={classes.button}
                 disabled={paletteIsFull}
@@ -137,7 +143,7 @@ class NewPaletteForm extends Component {
         </Drawer>
         <main
           className={classNames(classes.content, {
-            [classes.contentShift]: open
+            [classes.contentShift]: open,
           })}
         >
           <div className={classes.drawerHeader} />
